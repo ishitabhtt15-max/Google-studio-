@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+:root {
+  --bg-color: #050505;
+  --text-primary: #ffffff;
+  --text-secondary: #86868b;
+  --accent: #0066cc;
+  --flashlight-size: 300px;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  cursor: none; /* Hide default cursor globally */
+}
+
+/* Noise Overlay */
+.noise::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.08;
+  z-index: 9999;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  mix-blend-mode: overlay;
+}
+
+/* Flashlight Effect */
+.flashlight-reveal {
+  mask-image: radial-gradient(
+    circle var(--flashlight-size) at var(--x) var(--y),
+    black 20%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--flashlight-size) at var(--x) var(--y),
+    black 20%,
+    transparent 100%
+  );
+}
+
+.flashlight-overlay {
+  background: radial-gradient(
+    circle var(--flashlight-size) at var(--x) var(--y),
+    rgba(0, 102, 204, 0.15) 0%,
+    transparent 100%
+  );
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom selection color */
+::selection {
+  background-color: #0066cc;
+  color: #fff;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.9; }
+  15% { opacity: 0.95; }
+  20% { opacity: 0.98; }
+  25% { opacity: 0.95; }
+  30% { opacity: 0.9; }
+  35% { opacity: 0.95; }
+  40% { opacity: 0.98; }
+  45% { opacity: 0.95; }
+  50% { opacity: 0.9; }
+  55% { opacity: 0.95; }
+  60% { opacity: 0.98; }
+  65% { opacity: 0.95; }
+  70% { opacity: 0.9; }
+  75% { opacity: 0.95; }
+  80% { opacity: 0.98; }
+  85% { opacity: 0.95; }
+  90% { opacity: 0.9; }
+  95% { opacity: 0.95; }
+  100% { opacity: 0.98; }
+}
+
+.animate-flicker {
+  animation: flicker 0.1s infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 102, 204, 0.1);
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-display);
+}
